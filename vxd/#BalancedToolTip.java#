@@ -1,0 +1,37 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class BalancedTooltip extends JFrame {
+
+    public BalancedTooltip() {
+        setTitle("Multi-line Tooltip Example");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        // The long text you want to display
+        String longText = "This is a very long tooltip text that would normally " +
+                          "stretch across the entire screen, making it very " +
+                          "difficult for the user to read without moving their " +
+                          "eyes significantly. By wrapping it in HTML and " +
+                          "setting a width, we make it more square and readable.";
+
+        // Create a button with a balanced tooltip
+        JButton infoButton = new JButton("Hover over me");
+        
+        // Wrap text in HTML with a defined width (e.g., 200px)
+        // Adjust the width value to get your desired "square" ratio
+        String formattedTooltip = "<html><body style='width: 200px; padding: 5px;'>" 
+                                 + longText + "</body></html>";
+        
+        infoButton.setToolTipText(formattedTooltip);
+
+        add(infoButton);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new BalancedTooltip().setVisible(true);
+        });
+    }
+}

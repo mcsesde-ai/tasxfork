@@ -1,97 +1,64 @@
 package vxd;
 
-import javax.swing.JComponent;
-import javax.swing.JToolTip;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.ToolTipUI;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.util.regex.Pattern;
+import javax.swing.*;
+import javax.swing.plaf.metal.MetalToolTipUI;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A tooltip that wraps multi-line text.
- */
-public final class MultiLineToolTipUI extends ToolTipUI {
+public class MultiLineToolTipUI extends MetalToolTipUI {
+    private final int FIXED_WIDTH = 250;
+    private final List<String> lines = new ArrayList<>();
 
-    private static final int INSET = 2;
+        @Override
+	public void paint(Graphics g, JComponent c) {
+	    FontMetrics fm = g.getFontMetrics();
+	    Dimension size = c.getSize();
 
-    private static final Pattern LINE_SPLITTER = Pattern.compile("$", Pattern.MULTILINE);
+	    // Paint background
+	    g.setColor(c.getBackground());
+	    g.fillRect(0, 0, size.width, size.height);
 
-    private static final MultiLineToolTipUI SHARED_INSTANCE = new MultiLineToolTipUI();
+	    // Paint text
+	    g.setColor(c.getForeground());
+	    String tipText = ((JToolTip)c).getTipText();
+	    if (tipText == null) return;
 
-    /**
-     * Install the multi-line tooltip into the UI manager.
-     */
-    public static void installUI() {
-        String toolTipUI = MultiLineToolTipUI.class.getName();
-        UIManager.put("ToolTipUI", toolTipUI);
-        UIManager.put(toolTipUI, MultiLineToolTipUI.class);
+	    wrapText(tipText, fm);
+
+	    int y = fm.getAscent() + 5;
+	    for (String line : lines) {
+		g.drawString(line, 5, y);
+		y += fm.getHeight();
+	    }
+	}
+
+        @Override
+	public Dimension getPreferredSize(JComponent c) {
+	    FontMetrics fm = c.getFontMetrics(c.getFont());
+	    String tipText = ((JToolTip)c).getTipText();
+
+	    if (tipText == null) return new Dimension(0, 0);
+
+	    wrapText(tipText, fm);
+	    int height = (lines.size() * fm.getHeight()) + 10;
+	    return new Dimension(FIXED_WIDTH, height);
+	}
+
+    private void wrapText(String text, FontMetrics fm) {
+	lines.clear();
+	String[] words = text.split("\\s+");
+	StringBuilder currentLine = new StringBuilder();
+
+	for (String word : words) {
+	    if (fm.stringWidth(currentLine + " " + word) < FIXED_WIDTH - 10) {
+		if (currentLine.length() > 0) currentLine.append(" ");
+		currentLine.append(word);
+	    } else {
+		lines.add(currentLine.toString());
+		currentLine = new StringBuilder(word);
+	    }
+	}
+	if (currentLine.length() > 0) lines.add(currentLine.toString());
     }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public static ComponentUI createUI(JComponent c) {
-        return SHARED_INSTANCE;
-    }
-
-    private MultiLineToolTipUI() {}
-
-    @Override
-    public Dimension getMaximumSize(JComponent c) {
-        return getPreferredSize(c);
-    }
-
-    @Override
-    public Dimension getMinimumSize(JComponent c) {
-        return getPreferredSize(c);
-    }
-
-    @Override
-    public Dimension getPreferredSize(JComponent c) {
-        String[] lines = LINE_SPLITTER.split(((JToolTip) c).getTipText());
-        if (lines.length == 0) {
-            return new Dimension(2 * INSET, 2 * INSET);
-        }
-        FontMetrics metrics = c.getFontMetrics(c.getFont());
-        Graphics g = c.getGraphics();
-        int w = 0;
-        for (String line : lines) {
-            w = Math.max(w, (int) metrics.getStringBounds(line, g).getWidth());
-        }
-        int h = lines.length * metrics.getHeight();
-        return new Dimension(w + 2 * INSET, h + 2 * INSET);
-    }
-
-    @Override
-    public void installUI(JComponent c) {
-        LookAndFeel.installColorsAndFont(c, "ToolTip.background", "ToolTip.foreground", "ToolTip.font");
-        LookAndFeel.installBorder(c, "ToolTip.border");
-    }
-
-    @Override
-    public void paint(Graphics g, JComponent c) {
-        int w = c.getWidth(), h = c.getHeight();
-        g.setColor(c.getBackground());
-        g.fillRect(0, 0, w, h);
-        g.setColor(c.getForeground());
-        g.drawRect(0, 0, w, h);
-        String[] lines = LINE_SPLITTER.split(((JToolTip) c).getTipText());
-        if (lines.length != 0) {
-            FontMetrics metrics = c.getFontMetrics(c.getFont());
-            int height = metrics.getHeight();
-            int y = INSET + metrics.getAscent();
-            for (String line : lines) {
-                g.drawString(line, INSET, y);
-                y += height;
-            }
-        }
-    }
-
-    @Override
-    public void uninstallUI(JComponent c) {
-        LookAndFeel.uninstallBorder(c);
-    }
-
 }
