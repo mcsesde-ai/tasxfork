@@ -46,8 +46,11 @@ public class MultiLineToolTipUI extends MetalToolTipUI {
 	    if (tipText == null) return new Dimension(0, 0);
 
 	    wrapText(tipText, fm);
+
+	    int wholeTipLength=fm.stringWidth(tipText);
+	    
 	    int height = (lines.size() * fm.getHeight()) + 10;
-	    return new Dimension(FIXED_WIDTH, height);
+	    return new Dimension(wholeTipLength>FIXED_WIDTH?FIXED_WIDTH:wholeTipLength+10, height);
 	}
 
     private void wrapText(String text, FontMetrics fm) {
