@@ -1,6 +1,7 @@
 package vxd;
 
 import javax.swing.*;
+import javax.swing.plaf.*;
 import javax.swing.plaf.metal.MetalToolTipUI;
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class MultiLineToolTipUI extends MetalToolTipUI {
 	    }
 	}
 
+    public static ComponentUI createUI(JComponent c) {
+	return new MultiLineToolTipUI();
+    }
+    
         @Override
 	public Dimension getPreferredSize(JComponent c) {
 	    FontMetrics fm = c.getFontMetrics(c.getFont());

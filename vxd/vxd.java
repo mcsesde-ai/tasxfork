@@ -74,9 +74,12 @@ public class vxd {
 
     public static void main(String[] args) {
 	SwingUtilities.invokeLater(() -> {
-		// Register the custom UI delegate
-		UIManager.put("ToolTipUI", MultiLineToolTipUI.class.getName());
-		// Now every standard JButton/JLabel will wrap automatically!
+		try {
+		    UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
+		    UIManager.put("ToolTipUI", MultiLineToolTipUI.class.getName());
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
 	    });
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -101,7 +104,7 @@ public class vxd {
             vxd.translators = root.getElementsByTagName("translator");
             vxd.platforms = root.getElementsByTagName("platform");
 
-            MultiLineToolTipUI.installUI();
+	    //            MultiLineToolTipUI.installUI();
 	    
             menuBar = new JMenuBar();
             MenuItemActionListener listener = new MenuItemActionListener();
