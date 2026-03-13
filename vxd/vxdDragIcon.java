@@ -19,8 +19,8 @@ import vxd.vxdJButton;
 import vxd.vxdAttribute;
 
 public class vxdDragIcon extends JComponent
-        implements MouseListener, MouseMotionListener, vxdDropTarget,
-        ActionListener {
+    implements MouseListener, MouseMotionListener, vxdDropTarget,
+	       ActionListener {
     public vxdJButton button;
     public Image image;
     public ImageIcon icon;
@@ -53,7 +53,7 @@ public class vxdDragIcon extends JComponent
         }
         setToolTipText((ttip));
         Dimension d = new Dimension(image.getWidth(null) + vxd.iconborder * 2,
-                image.getHeight(null) + vxd.iconborder * 2);
+				    image.getHeight(null) + vxd.iconborder * 2);
         setPreferredSize(d);
         setLocation(x - d.width / 2, y - d.height / 2);
         addMouseListener(this);
@@ -82,17 +82,17 @@ public class vxdDragIcon extends JComponent
             char ch = st.charAt(i);
             if (ch == '\\') {
                 char nextChar = (i == st.length() - 1) ? '\\' : st
-                        .charAt(i + 1);
+		    .charAt(i + 1);
                 // Octal escape?
                 if (nextChar >= '0' && nextChar <= '7') {
                     String code = "" + nextChar;
                     i++;
                     if ((i < st.length() - 1) && st.charAt(i + 1) >= '0'
-                            && st.charAt(i + 1) <= '7') {
+			&& st.charAt(i + 1) <= '7') {
                         code += st.charAt(i + 1);
                         i++;
                         if ((i < st.length() - 1) && st.charAt(i + 1) >= '0'
-                                && st.charAt(i + 1) <= '7') {
+			    && st.charAt(i + 1) <= '7') {
                             code += st.charAt(i + 1);
                             i++;
                         }
@@ -101,42 +101,42 @@ public class vxdDragIcon extends JComponent
                     continue;
                 }
                 switch (nextChar) {
-                    case '\\':
-                        ch = '\\';
-                        break;
-                    case 'b':
-                        ch = '\b';
-                        break;
-                    case 'f':
-                        ch = '\f';
-                        break;
-                    case 'n':
-                        ch = '\n';
-                        break;
-                    case 'r':
-                        ch = '\r';
-                        break;
-                    case 't':
-                        ch = '\t';
-                        break;
-                    case '\"':
-                        ch = '\"';
-                        break;
-                    case '\'':
-                        ch = '\'';
-                        break;
+		case '\\':
+		    ch = '\\';
+		    break;
+		case 'b':
+		    ch = '\b';
+		    break;
+		case 'f':
+		    ch = '\f';
+		    break;
+		case 'n':
+		    ch = '\n';
+		    break;
+		case 'r':
+		    ch = '\r';
+		    break;
+		case 't':
+		    ch = '\t';
+		    break;
+		case '\"':
+		    ch = '\"';
+		    break;
+		case '\'':
+		    ch = '\'';
+		    break;
                     // Hex Unicode: u????
-                    case 'u':
-                        if (i >= st.length() - 5) {
-                            ch = 'u';
-                            break;
-                        }
-                        int code = Integer.parseInt(
-                                "" + st.charAt(i + 2) + st.charAt(i + 3)
-                                        + st.charAt(i + 4) + st.charAt(i + 5), 16);
-                        sb.append(Character.toChars(code));
-                        i += 5;
-                        continue;
+		case 'u':
+		    if (i >= st.length() - 5) {
+			ch = 'u';
+			break;
+		    }
+		    int code = Integer.parseInt(
+						"" + st.charAt(i + 2) + st.charAt(i + 3)
+						+ st.charAt(i + 4) + st.charAt(i + 5), 16);
+		    sb.append(Character.toChars(code));
+		    i += 5;
+		    continue;
                 }
                 i++;
             }
@@ -221,14 +221,14 @@ public class vxdDragIcon extends JComponent
             for (int i = -1; i <= 1; ++i)
                 for (int j = -1; j <= 1; ++j) {
                     int xx = getWidth() / 2 -
-                            g.getFontMetrics().stringWidth(name) / 2 + i;
+			g.getFontMetrics().stringWidth(name) / 2 + i;
                     g.drawString(name, xx < 0 ? 0 : xx, getHeight() - 5 + j);
                 }
             g.setColor(getForeground());
             int xx = getWidth() / 2 -
-                    g.getFontMetrics().stringWidth(name) / 2;
+		g.getFontMetrics().stringWidth(name) / 2;
             g.drawString(name, xx < 0 ? 0 : xx,
-                    getHeight() - 5);
+			 getHeight() - 5);
         }
         if (element != null) {
             String tttip = element.getAttribute("Notes");
@@ -249,7 +249,7 @@ public class vxdDragIcon extends JComponent
         if (e != null) {
             vxd.controller.DEBUG_STACK_TRACE(e);
             if (e.getButton() == MouseEvent.BUTTON2 ||
-                    e.getButton() == MouseEvent.BUTTON3)
+		e.getButton() == MouseEvent.BUTTON3)
                 return;
             dragStart = e.getPoint();
         }
@@ -273,16 +273,16 @@ public class vxdDragIcon extends JComponent
         TreePath path = new TreePath(objs);
         vxd.controller.selectedNode = path;
         SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                vxd.controller.refreshXMLViews();
-            }
-        });
+		public void run() {
+		    vxd.controller.refreshXMLViews();
+		}
+	    });
         vxd.controller.statusText.setText(element.toString());
     }
 
     public void mouseDragged(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON2 ||
-                e.getButton() == MouseEvent.BUTTON3)
+	    e.getButton() == MouseEvent.BUTTON3)
             return;
         if (dragStart == null)
             return;
@@ -303,10 +303,10 @@ public class vxdDragIcon extends JComponent
         element.getAttributeNode("XPos").setValue(Integer.toString(lpt.x));
         element.getAttributeNode("YPos").setValue(Integer.toString(lpt.y));
         SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                vxd.controller.refreshXMLViews();
-            }
-        });
+		public void run() {
+		    vxd.controller.refreshXMLViews();
+		}
+	    });
         dragStart = null;
     }
 
@@ -353,9 +353,9 @@ public class vxdDragIcon extends JComponent
             while (en.hasMoreElements()) {
                 vxdAttribute a = (vxdAttribute) en.nextElement();
                 if (a.combo != null &&
-                        a.combo.size() == 2 &&
-                        a.combo.contains("TRUE") &&
-                        a.combo.contains("FALSE")) {
+		    a.combo.size() == 2 &&
+		    a.combo.contains("TRUE") &&
+		    a.combo.contains("FALSE")) {
                     JCheckBoxMenuItem cb = new JCheckBoxMenuItem(a.name);
                     cb.setActionCommand(a.name);
                     cb.addActionListener(this);
@@ -372,7 +372,7 @@ public class vxdDragIcon extends JComponent
 
     public void actionPerformed(ActionEvent e) {
         vxd.controller.DEBUG_STACK_TRACE(e);
- String os = System.getProperty("os.name").startsWith("Windows") ? "Windows" : System.getProperty("os.name").startsWith("Mac") ? "Mac" : "Linux";
+	String os = System.getProperty("os.name").startsWith("Windows") ? "Windows" : System.getProperty("os.name").startsWith("Mac") ? "Mac" : "Linux";
         String separator = System.getProperty("os.name").startsWith("Windows") ? "\\" : "/";
         String browser = vxd.config.getDocumentElement().getAttribute("browser" + os);
         String editor = vxd.config.getDocumentElement().getAttribute("editor" + os);
@@ -388,33 +388,33 @@ public class vxdDragIcon extends JComponent
                 changelabel.setHorizontalAlignment(JLabel.CENTER);
                 changelabel.setVerticalAlignment(JLabel.CENTER);
                 JComboBox selectElement = new JComboBox(){
-                    @Override public void addItem(Object obj){
-                        int count = getItemCount();
-                        String toAdd = (String) obj;
+			@Override public void addItem(Object obj){
+			    int count = getItemCount();
+			    String toAdd = (String) obj;
 
-                        java.util.List<String> items = new ArrayList<String>();
-                        for(int i = 0; i < count; i++){
-                            items.add((String)getItemAt(i));
-                        }
+			    java.util.List<String> items = new ArrayList<String>();
+			    for(int i = 0; i < count; i++){
+				items.add((String)getItemAt(i));
+			    }
 
-                        if(items.size() == 0){
-                            super.addItem(toAdd);
-                            return;
-                        }else{
-                            if(toAdd.compareTo(items.get(0)) <= 0){
-                                insertItemAt(toAdd, 0);
-                            }else{
-                                int lastIndexOfHigherNum = 0;
-                                for(int i = 0; i < count; i++){
-                                    if(toAdd.compareTo(items.get(i)) > 0){
-                                        lastIndexOfHigherNum = i;
-                                    }
-                                }
-                                insertItemAt(toAdd, lastIndexOfHigherNum+1);
-                            }
-                        }
-                    }
-                };
+			    if(items.size() == 0){
+				super.addItem(toAdd);
+				return;
+			    }else{
+				if(toAdd.compareTo(items.get(0)) <= 0){
+				    insertItemAt(toAdd, 0);
+				}else{
+				    int lastIndexOfHigherNum = 0;
+				    for(int i = 0; i < count; i++){
+					if(toAdd.compareTo(items.get(i)) > 0){
+					    lastIndexOfHigherNum = i;
+					}
+				    }
+				    insertItemAt(toAdd, lastIndexOfHigherNum+1);
+				}
+			    }
+			}
+		    };
                 Element root = vxd.project.languageElements.getDocumentElement();
                 NodeList icons = root.getElementsByTagName("Icon");
                 for (int i = 0; i < icons.getLength(); ++i) {
@@ -432,101 +432,101 @@ public class vxdDragIcon extends JComponent
                 btnpanel.setLayout(new FlowLayout());
                 JButton okbtn = new JButton("OK");
                 okbtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if(e.getActionCommand().equals("OK")) {
-                            try {
-                                Node parentNode = vxd.changeElementElement.getParentNode();
-                                Element replaceElement = vxd.changeElementElement.getOwnerDocument().createElement(vxd.changeElementField.getSelectedItem().toString());
-                                parentNode.appendChild(replaceElement);
-                                vxd.changeElementReplacement = replaceElement;
-                                vxd.controller.copyAttributes(vxd.changeElementElement, replaceElement);
-                                NodeList childrenNodes = vxd.changeElementElement.getChildNodes();
-                                while (childrenNodes.getLength() > 0) {
-                                    Node child = childrenNodes.item(0);
-                                    replaceElement.appendChild(child);
-                                }
-                                vxd.changeElementElement.getParentNode().removeChild(vxd.changeElementElement);
-                                parentNode.appendChild(replaceElement);
-                                Element root = vxd.project.languageElements.getDocumentElement();
-                                NodeList images = root.getElementsByTagName("Icon");
-                                for (int i = 0; i < images.getLength(); ++i) {
-                                    Element node = (Element) images.item(i);
-                                    if (vxd.changeElementField.getSelectedItem().toString().equals(node.getAttribute("Name"))) {
-                                        Image img = Toolkit.getDefaultToolkit().getImage(node.getAttribute("Image"));
-                                        ImageFilter transparency = new vxd.BlackToTransparentFilter();
-                                        ImageProducer producer = new FilteredImageSource(img.getSource(), transparency);
-                                        Image transparentimg = Toolkit.getDefaultToolkit().createImage(producer);
-                                        Image dragimage = transparentimg.getScaledInstance(vxd.xdragsize,
-                                                vxd.ydragsize, Image.SCALE_SMOOTH);
-                                        try {
-                                            MediaTracker mt = new MediaTracker(vxd.frame);
-                                            mt.addImage(dragimage, 0);
-                                            mt.waitForAll();
-                                            vxd.changeElementDragIcon.element = replaceElement;
-                                            vxd.changeElementDragIcon.image = dragimage;
-                                            vxd.changeElementDragIcon.repaint();
-                                            vxd.controller.selectedNode = new TreePath(replaceElement);
-                                            SwingUtilities.invokeLater(new Runnable() {
-                                                public void run() {
-                                                    vxd.topDialog.setVisible(false);
-                                                    vxd.topDialog.dispose();
-                                                    vxd.topDialog = null;
-                                                }
-                                            });
-                                            SwingUtilities.invokeLater(new Runnable() {
-                                                public void run() {
-                                                    vxd.controller.iconConnectionView.validateIconsAndConnectors();
-                                                }
-                                            });
-                                            SwingUtilities.invokeLater(new Runnable() {
-                                                public void run() {
-                                                    vxd.controller.refreshXMLViews();
-                                                }
-                                            });
-                                        } catch (Exception ex) {
-                                            ex.printStackTrace();
-                                        }
-                                    }
-                                }
-                            } catch (Exception aoe) {
-                                aoe.printStackTrace();
-                            }
-                        }
-                    }
-                });
+			public void actionPerformed(ActionEvent e) {
+			    if(e.getActionCommand().equals("OK")) {
+				try {
+				    Node parentNode = vxd.changeElementElement.getParentNode();
+				    Element replaceElement = vxd.changeElementElement.getOwnerDocument().createElement(vxd.changeElementField.getSelectedItem().toString());
+				    parentNode.appendChild(replaceElement);
+				    vxd.changeElementReplacement = replaceElement;
+				    vxd.controller.copyAttributes(vxd.changeElementElement, replaceElement);
+				    NodeList childrenNodes = vxd.changeElementElement.getChildNodes();
+				    while (childrenNodes.getLength() > 0) {
+					Node child = childrenNodes.item(0);
+					replaceElement.appendChild(child);
+				    }
+				    vxd.changeElementElement.getParentNode().removeChild(vxd.changeElementElement);
+				    parentNode.appendChild(replaceElement);
+				    Element root = vxd.project.languageElements.getDocumentElement();
+				    NodeList images = root.getElementsByTagName("Icon");
+				    for (int i = 0; i < images.getLength(); ++i) {
+					Element node = (Element) images.item(i);
+					if (vxd.changeElementField.getSelectedItem().toString().equals(node.getAttribute("Name"))) {
+					    Image img = Toolkit.getDefaultToolkit().getImage(node.getAttribute("Image"));
+					    ImageFilter transparency = new vxd.BlackToTransparentFilter();
+					    ImageProducer producer = new FilteredImageSource(img.getSource(), transparency);
+					    Image transparentimg = Toolkit.getDefaultToolkit().createImage(producer);
+					    Image dragimage = transparentimg.getScaledInstance(vxd.xdragsize,
+											       vxd.ydragsize, Image.SCALE_SMOOTH);
+					    try {
+						MediaTracker mt = new MediaTracker(vxd.frame);
+						mt.addImage(dragimage, 0);
+						mt.waitForAll();
+						vxd.changeElementDragIcon.element = replaceElement;
+						vxd.changeElementDragIcon.image = dragimage;
+						vxd.changeElementDragIcon.repaint();
+						vxd.controller.selectedNode = new TreePath(replaceElement);
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+							    vxd.topDialog.setVisible(false);
+							    vxd.topDialog.dispose();
+							    vxd.topDialog = null;
+							}
+						    });
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+							    vxd.controller.iconConnectionView.validateIconsAndConnectors();
+							}
+						    });
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+							    vxd.controller.refreshXMLViews();
+							}
+						    });
+					    } catch (Exception ex) {
+						ex.printStackTrace();
+					    }
+					}
+				    }
+				} catch (Exception aoe) {
+				    aoe.printStackTrace();
+				}
+			    }
+			}
+		    });
                 JButton cancelbtn = new JButton("Cancel");
                 cancelbtn.addActionListener(new
 
-                                                    ActionListener() {
-                                                        public void actionPerformed(ActionEvent e) {
-                                                            vxd.topDialog.setVisible(false);
-                                                            vxd.topDialog.dispose();
-                                                            vxd.topDialog = null;
-                                                        }
-                                                    });
+					    ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    vxd.topDialog.setVisible(false);
+			    vxd.topDialog.dispose();
+			    vxd.topDialog = null;
+			}
+		    });
                 change.addWindowListener(new
 
-                                                 WindowAdapter() {
-                                                     public void windowClosing(WindowEvent e) {
-                                                         vxd.topDialog.setVisible(false);
-                                                         vxd.topDialog.dispose();
-                                                         vxd.topDialog = null;
-                                                     }
-                                                 });
+					 WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+			    vxd.topDialog.setVisible(false);
+			    vxd.topDialog.dispose();
+			    vxd.topDialog = null;
+			}
+		    });
                 change.getContentPane().
 
-                        setLayout(new GridLayout(4, 1));
+		    setLayout(new GridLayout(4, 1));
                 change.getContentPane().
 
-                        add(changepanel);
+		    add(changepanel);
                 change.getContentPane().
 
-                        add(new JPanel());
+		    add(new JPanel());
                 btnpanel.add(okbtn);
                 btnpanel.add(cancelbtn);
                 change.getContentPane().
 
-                        add(btnpanel);
+		    add(btnpanel);
 
                 vxd.changeElementElement = element;
                 vxd.changeElementDragIcon = this;
@@ -536,81 +536,81 @@ public class vxdDragIcon extends JComponent
             }
         } else if (e.getActionCommand().
 
-                equals("OPEN")) {
+		   equals("OPEN")) {
             try {
                 java.lang.Runtime.getRuntime().exec(element.getAttributeNode("ShellCommand").getNodeValue().
-                        replace("\\", separator).
-                        replace("\\", separator).
-                        replace("\\", separator).
-                        replace("\\", separator).
-                        replace("\\", separator).
-                        replace("[LANGUAGE]", vxd.project.language).
-                        replace("[LANGUAGE]", vxd.project.language).
-                        replace("[TRANSLATOR]", vxd.project.translator).
-                        replace("[TRANSLATOR]", vxd.project.translator).
-                        replace("[PROJECT]", vxd.project.name).
-                        replace("[PROJECT]", vxd.project.name).
-                        replace("[BROWSER]", browser).
-                        replace("[EDITOR]", editor).
-                        replace("[FILEMANAGER]", fileManager));
+						    replace("\\", separator).
+						    replace("\\", separator).
+						    replace("\\", separator).
+						    replace("\\", separator).
+						    replace("\\", separator).
+						    replace("[LANGUAGE]", vxd.project.language).
+						    replace("[LANGUAGE]", vxd.project.language).
+						    replace("[TRANSLATOR]", vxd.project.translator).
+						    replace("[TRANSLATOR]", vxd.project.translator).
+						    replace("[PROJECT]", vxd.project.name).
+						    replace("[PROJECT]", vxd.project.name).
+						    replace("[BROWSER]", browser).
+						    replace("[EDITOR]", editor).
+						    replace("[FILEMANAGER]", fileManager));
             } catch (Exception exc) {
                 JOptionPane.showMessageDialog(vxd.frame, "Error: " + exc.getMessage());
                 exc.printStackTrace();
             }
         } else if (e.getActionCommand().
 
-                equals("EXTERNALURL")) {
+		   equals("EXTERNALURL")) {
             try {
                 java.lang.Runtime.getRuntime().exec(vxd.config.getDocumentElement()
-                        .getAttribute("browser" + os) + " " + element.getAttributeNode("ExternalLinkURL").getNodeValue().
-                        replace("\\", separator).
-                        replace("\\", separator).
-                        replace("[LANGUAGE]", vxd.project.language).
-                        replace("[LANGUAGE]", vxd.project.language).
-                        replace("[TRANSLATOR]", vxd.project.translator).
-                        replace("[TRANSLATOR]", vxd.project.translator).
-                        replace("[PROJECT]", vxd.project.name).
-                        replace("[PROJECT]", vxd.project.name).
-                        replace("[BROWSER]", browser).
-                        replace("[EDITOR]", editor).
-                        replace("[FILEMANAGER]", fileManager));
+						    .getAttribute("browser" + os) + " " + element.getAttributeNode("ExternalLinkURL").getNodeValue().
+						    replace("\\", separator).
+						    replace("\\", separator).
+						    replace("[LANGUAGE]", vxd.project.language).
+						    replace("[LANGUAGE]", vxd.project.language).
+						    replace("[TRANSLATOR]", vxd.project.translator).
+						    replace("[TRANSLATOR]", vxd.project.translator).
+						    replace("[PROJECT]", vxd.project.name).
+						    replace("[PROJECT]", vxd.project.name).
+						    replace("[BROWSER]", browser).
+						    replace("[EDITOR]", editor).
+						    replace("[FILEMANAGER]", fileManager));
             } catch (Exception exc) {
                 JOptionPane.showMessageDialog(vxd.frame, "Error: " + exc.getMessage());
                 exc.printStackTrace();
             }
         } else if (e.getActionCommand().
 
-                equals("DELETE")) {
+		   equals("DELETE")) {
             element.getParentNode().removeChild(element);
             vxd.controller.iconConnectionView.remove(this);
             vxd.controller.selectedNode = new TreePath(vxd.controller.project.
-                    programXML.getDocumentElement());
+						       programXML.getDocumentElement());
             SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    vxd.controller.iconConnectionView.validateIconsAndConnectors();
-                }
-            });
+		    public void run() {
+			vxd.controller.iconConnectionView.validateIconsAndConnectors();
+		    }
+		});
             SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    vxd.controller.refreshXMLViews();
-                }
-            });
+		    public void run() {
+			vxd.controller.refreshXMLViews();
+		    }
+		});
         } else if (e.getActionCommand().
 
-                equals("SELECTCONNECTED")) {
+		   equals("SELECTCONNECTED")) {
             ;
         } else {
             if (element.getAttribute(e.getActionCommand()).equals("TRUE"))
                 element.getAttributeNode(e.getActionCommand()).
-                        setValue("FALSE");
+		    setValue("FALSE");
             else
                 element.getAttributeNode(e.getActionCommand()).
-                        setValue("TRUE");
+		    setValue("TRUE");
             SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    vxd.controller.refreshXMLViews();
-                }
-            });
+		    public void run() {
+			vxd.controller.refreshXMLViews();
+		    }
+		});
         }
     }
 }

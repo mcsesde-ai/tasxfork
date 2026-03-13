@@ -75,7 +75,7 @@ public class vxd {
     public static void main(String[] args) {
 	SwingUtilities.invokeLater(() -> {
 		try {
-		    UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
+		    //		    UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
 		    UIManager.put("ToolTipUI", MultiLineToolTipUI.class.getName());
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -117,9 +117,9 @@ public class vxd {
             vxd.toolBarPanel = new JPanel(new BorderLayout());
             toolBarPanel.add(toolBar, "West");
             Image viewimg = Toolkit.getDefaultToolkit().getImage(
-                    root.getAttribute("splashimage"));
+								 root.getAttribute("splashimage"));
             Image iconimg = Toolkit.getDefaultToolkit().getImage(
-                    root.getAttribute("iconimage"));
+								 root.getAttribute("iconimage"));
             vxd.viewPanel = new JLabel(new ImageIcon(viewimg));
 
             frame = new JFrame(title);
@@ -129,30 +129,30 @@ public class vxd {
             frame.getContentPane().add(toolBarPanel, "North");
             frame.getContentPane().add(viewPanel, "Center");
             frame.setSize(XSIZE = Integer.parseInt(root.getAttribute("xsize")),
-                    YSIZE = Integer.parseInt(root.getAttribute("ysize")));
+			  YSIZE = Integer.parseInt(root.getAttribute("ysize")));
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(frame.DO_NOTHING_ON_CLOSE);
             frame.setVisible(true);
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             frame.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
-                    int YorN = JOptionPane.showConfirmDialog(vxd.frame
-                                    .getContentPane(), vxd.config.getDocumentElement()
-                                    .getAttribute("exitstring"), vxd.config
-                                    .getDocumentElement().getAttribute("exittitle"),
-                            JOptionPane.YES_NO_OPTION);
+		    public void windowClosing(WindowEvent e) {
+			int YorN = JOptionPane.showConfirmDialog(vxd.frame
+								 .getContentPane(), vxd.config.getDocumentElement()
+								 .getAttribute("exitstring"), vxd.config
+								 .getDocumentElement().getAttribute("exittitle"),
+								 JOptionPane.YES_NO_OPTION);
 
-                    if (YorN == JOptionPane.YES_OPTION)
-                        System.exit(0);
-                }
-            });
+			if (YorN == JOptionPane.YES_OPTION)
+			    System.exit(0);
+		    }
+		});
             if (vxd.mainLoadFile != null) {
                 SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        ActionEvent ae = new ActionEvent(vxd.mainMenuItemOpen, 0, "OPEN");
-                        vxd.mainMenuOpenListener.actionPerformed(ae);
-                    }
-                });
+			public void run() {
+			    ActionEvent ae = new ActionEvent(vxd.mainMenuItemOpen, 0, "OPEN");
+			    vxd.mainMenuOpenListener.actionPerformed(ae);
+			}
+		    });
             }
 
         } catch (Exception e) {
@@ -166,14 +166,14 @@ public class vxd {
         for (int i = 0; i < images.getLength(); ++i) {
             Element node = (Element) images.item(i);
             Image img = Toolkit.getDefaultToolkit().getImage(
-                    node.getAttribute("image"));
+							     node.getAttribute("image"));
             ImageFilter transparency = new BlackToTransparentFilter();
             ImageProducer producer = new FilteredImageSource(img.getSource(),
-                    transparency);
+							     transparency);
             Image transparentimg = Toolkit.getDefaultToolkit().createImage(
-                    producer);
+									   producer);
             Image smallimg = transparentimg.getScaledInstance(xiconsize,
-                    yiconsize, Image.SCALE_SMOOTH);
+							      yiconsize, Image.SCALE_SMOOTH);
             ImageIcon icon = new ImageIcon(smallimg);
             JButton toolbutton = new JButton(icon);
             toolbutton.setToolTipText(node.getAttribute("text"));
@@ -181,7 +181,7 @@ public class vxd {
             toolbutton.addActionListener(listener);
             toolbutton.setBorderPainted(false);
             toolbutton.setMargin(new Insets(iconborder, iconborder, iconborder,
-                    iconborder));
+					    iconborder));
             if (node.getAttribute("enabled").equals("TRUE"))
                 toolBar.add(toolbutton);
         }
@@ -198,17 +198,17 @@ public class vxd {
             for (int j = 0; j < menuitms.getLength(); ++j) {
                 Element node = (Element) menuitms.item(j);
                 Image img = Toolkit.getDefaultToolkit().getImage(
-                        node.getAttribute("image"));
+								 node.getAttribute("image"));
                 ImageFilter transparency = new BlackToTransparentFilter();
                 ImageProducer producer = new FilteredImageSource(img
-                        .getSource(), transparency);
+								 .getSource(), transparency);
                 Image transparentimg = Toolkit.getDefaultToolkit().createImage(
-                        producer);
+									       producer);
                 Image smallimg = transparentimg.getScaledInstance(xiconsize,
-                        yiconsize, Image.SCALE_SMOOTH);
+								  yiconsize, Image.SCALE_SMOOTH);
                 ImageIcon icon = new ImageIcon(smallimg);
                 JMenuItem menuItem = new JMenuItem(node.getAttribute("text"),
-                        icon);
+						   icon);
                 menuItem.setActionCommand(node.getAttribute("command"));
                 menuItem.addActionListener(listener);
                 if (node.getAttribute("text").equals("Open")) {
@@ -235,8 +235,8 @@ public class vxd {
             for (int i = 0; i < vxd.translators.getLength(); ++i) {
                 Element node = (Element) translators.item(i);
                 if (node.getAttribute("enabled").equals("TRUE")
-                        && node.getAttribute("supportedlanguages")
-                        .indexOf(lang) > -1) {
+		    && node.getAttribute("supportedlanguages")
+		    .indexOf(lang) > -1) {
                     translatorCombo.addItem(node.getAttribute("name"));
                 }
             }
@@ -257,8 +257,8 @@ public class vxd {
             for (int i = 0; i < vxd.platforms.getLength(); ++i) {
                 Element node = (Element) platforms.item(i);
                 if (node.getAttribute("enabled").equals("TRUE")
-                        && node.getAttribute("supportedtranslators").indexOf(
-                        transl) > -1)
+		    && node.getAttribute("supportedtranslators").indexOf(
+									 transl) > -1)
                     deployerCombo.addItem(node.getAttribute("name"));
             }
         }
@@ -278,18 +278,18 @@ public class vxd {
             factory.setValidating(false);
             factory.setNamespaceAware(true);
             builder.setErrorHandler(new DefaultHandler() {
-                public void error(SAXParseException exception) throws SAXParseException {
-                    throw exception;
-                }
+		    public void error(SAXParseException exception) throws SAXParseException {
+			throw exception;
+		    }
 
-                public void fatalError(SAXParseException exception) throws SAXParseException {
-                    throw exception;
-                }
+		    public void fatalError(SAXParseException exception) throws SAXParseException {
+			throw exception;
+		    }
 
-                public void warning(SAXParseException exception) throws SAXParseException {
-                    throw exception;
-                }
-            });
+		    public void warning(SAXParseException exception) throws SAXParseException {
+			throw exception;
+		    }
+		});
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -331,9 +331,9 @@ public class vxd {
                 for (int i = 0; i < vxd.translators.getLength(); ++i) {
                     Element node = (Element) translators.item(i);
                     if (node.getAttribute("enabled").equals("TRUE")
-                            && node.getAttribute("supportedlanguages").indexOf(
-                            ((Element) languages.item(0))
-                                    .getAttribute("language")) > -1) {
+			&& node.getAttribute("supportedlanguages").indexOf(
+									   ((Element) languages.item(0))
+									   .getAttribute("language")) > -1) {
                         if (firstTransl == null)
                             firstTransl = node.getAttribute("translator");
                         trans.addItem(node.getAttribute("name"));
@@ -344,11 +344,11 @@ public class vxd {
                 transpanel.add(trans);
                 vxd.translatorCombo = trans;
                 vxd.languageCombo
-                        .addActionListener(new LanguageActionListener());
+		    .addActionListener(new LanguageActionListener());
                 vxd.translatorCombo
-                        .addActionListener(new TranslatorActionListener());
+		    .addActionListener(new TranslatorActionListener());
                 JLabel deploylabel = new JLabel(
-                        "Choose the Deployment Platform");
+						"Choose the Deployment Platform");
                 deploylabel.setHorizontalAlignment(JLabel.CENTER);
                 deploylabel.setVerticalAlignment(JLabel.CENTER);
                 JComboBox deploy = new JComboBox();
@@ -356,8 +356,8 @@ public class vxd {
                 for (int i = 0; i < vxd.platforms.getLength(); ++i) {
                     Element node = (Element) platforms.item(i);
                     if (node.getAttribute("enabled").equals("TRUE")
-                            && node.getAttribute("supportedtranslators")
-                            .indexOf(firstTransl) > -1) {
+			&& node.getAttribute("supportedtranslators")
+			.indexOf(firstTransl) > -1) {
                         deploy.addItem(node.getAttribute("name"));
                     }
                 }
@@ -369,118 +369,118 @@ public class vxd {
                 btnpanel.setLayout(new FlowLayout());
                 JButton okbtn = new JButton("OK");
                 okbtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if (vxd.textField.getText() == null
+			public void actionPerformed(ActionEvent e) {
+			    if (vxd.textField.getText() == null
                                 || vxd.textField.getText().length() == 0) {
-                            JOptionPane.showMessageDialog(vxd.frame,
-                                    "The Project Name Cannot Be Blank");
-                        } else {
-                            String lang = "";
-                            for (int i = 0; i < vxd.languages.getLength(); ++i) {
-                                Element node = (Element) languages.item(i);
-                                String txt = node.getAttribute("name");
-                                if (txt.equals((String) vxd.languageCombo
-                                        .getSelectedItem()))
-                                    lang = node.getAttribute("language");
-                            }
-                            String trans = "";
-                            for (int i = 0; i < vxd.translators.getLength(); ++i) {
-                                Element node = (Element) translators.item(i);
-                                String txt = node.getAttribute("name");
-                                if (txt.equals((String) vxd.translatorCombo
-                                        .getSelectedItem())) {
-                                    try {
-                                        String conf = node
+				JOptionPane.showMessageDialog(vxd.frame,
+							      "The Project Name Cannot Be Blank");
+			    } else {
+				String lang = "";
+				for (int i = 0; i < vxd.languages.getLength(); ++i) {
+				    Element node = (Element) languages.item(i);
+				    String txt = node.getAttribute("name");
+				    if (txt.equals((String) vxd.languageCombo
+						   .getSelectedItem()))
+					lang = node.getAttribute("language");
+				}
+				String trans = "";
+				for (int i = 0; i < vxd.translators.getLength(); ++i) {
+				    Element node = (Element) translators.item(i);
+				    String txt = node.getAttribute("name");
+				    if (txt.equals((String) vxd.translatorCombo
+						   .getSelectedItem())) {
+					try {
+					    String conf = node
                                                 .getAttribute("configfile");
-                                        DocumentBuilderFactory factory = DocumentBuilderFactory
+					    DocumentBuilderFactory factory = DocumentBuilderFactory
                                                 .newInstance();
-                                        DocumentBuilder builder = factory
+					    DocumentBuilder builder = factory
                                                 .newDocumentBuilder();
-                                        Document tconfig = builder
+					    Document tconfig = builder
                                                 .parse(new File(conf));
-                                        Element root = tconfig
+					    Element root = tconfig
                                                 .getDocumentElement();
-                                        Class cls = Class
+					    Class cls = Class
                                                 .forName(((Element) (root
-                                                        .getElementsByTagName("eventhandler")
-                                                        .item(0)))
-                                                        .getAttribute("class"));
-                                        ActionListener listener = (ActionListener) cls
+								     .getElementsByTagName("eventhandler")
+								     .item(0)))
+							 .getAttribute("class"));
+					    ActionListener listener = (ActionListener) cls
                                                 .newInstance();
-                                        NodeList menus = root
+					    NodeList menus = root
                                                 .getElementsByTagName("menu");
-                                        addMenus(vxd.menuBar, menus, listener);
-                                        NodeList images = root
+					    addMenus(vxd.menuBar, menus, listener);
+					    NodeList images = root
                                                 .getElementsByTagName("toolbarbutton");
-                                        addToolButtons(vxd.toolBar, images,
-                                                listener);
-                                        trans = node.getAttribute("translator");
-                                    } catch (Exception exx) {
-                                        exx.printStackTrace();
-                                    }
-                                }
-                            }
-                            String deploy = "";
-                            for (int i = 0; i < vxd.platforms.getLength(); ++i) {
-                                Element node = (Element) platforms.item(i);
-                                String txt = node.getAttribute("name");
-                                if (txt.equals((String) vxd.deployerCombo
-                                        .getSelectedItem())) {
-                                    try {
-                                        String conf = node
+					    addToolButtons(vxd.toolBar, images,
+							   listener);
+					    trans = node.getAttribute("translator");
+					} catch (Exception exx) {
+					    exx.printStackTrace();
+					}
+				    }
+				}
+				String deploy = "";
+				for (int i = 0; i < vxd.platforms.getLength(); ++i) {
+				    Element node = (Element) platforms.item(i);
+				    String txt = node.getAttribute("name");
+				    if (txt.equals((String) vxd.deployerCombo
+						   .getSelectedItem())) {
+					try {
+					    String conf = node
                                                 .getAttribute("configfile");
-                                        DocumentBuilderFactory factory = DocumentBuilderFactory
+					    DocumentBuilderFactory factory = DocumentBuilderFactory
                                                 .newInstance();
-                                        DocumentBuilder builder = factory
+					    DocumentBuilder builder = factory
                                                 .newDocumentBuilder();
-                                        Document tconfig = builder
+					    Document tconfig = builder
                                                 .parse(new File(conf));
-                                        Element root3 = tconfig
+					    Element root3 = tconfig
                                                 .getDocumentElement();
-                                        Class cls = Class
+					    Class cls = Class
                                                 .forName(((Element) (root3
-                                                        .getElementsByTagName("eventhandler")
-                                                        .item(0)))
-                                                        .getAttribute("class"));
-                                        ActionListener listener = (ActionListener) cls
+								     .getElementsByTagName("eventhandler")
+								     .item(0)))
+							 .getAttribute("class"));
+					    ActionListener listener = (ActionListener) cls
                                                 .newInstance();
-                                        NodeList menus = root3
+					    NodeList menus = root3
                                                 .getElementsByTagName("menu");
-                                        addMenus(vxd.menuBar, menus, listener);
-                                        NodeList images = root3
+					    addMenus(vxd.menuBar, menus, listener);
+					    NodeList images = root3
                                                 .getElementsByTagName("toolbarbutton");
-                                        addToolButtons(vxd.toolBar, images,
-                                                listener);
-                                        deploy = node.getAttribute("platform");
-                                    } catch (Exception exx) {
-                                        exx.printStackTrace();
-                                    }
-                                }
-                            }
-                            topDialog.setVisible(false);
-                            topDialog.dispose();
-                            topDialog = null;
-                            vxd.project = new vxdproject(vxd.textField
-                                    .getText(), lang, trans, deploy);
-                            vxd.controller = new vxdcontroller(vxd.project);
-                        }
-                    }
-                });
+					    addToolButtons(vxd.toolBar, images,
+							   listener);
+					    deploy = node.getAttribute("platform");
+					} catch (Exception exx) {
+					    exx.printStackTrace();
+					}
+				    }
+				}
+				topDialog.setVisible(false);
+				topDialog.dispose();
+				topDialog = null;
+				vxd.project = new vxdproject(vxd.textField
+							     .getText(), lang, trans, deploy);
+				vxd.controller = new vxdcontroller(vxd.project);
+			    }
+			}
+		    });
                 JButton cancelbtn = new JButton("Cancel");
                 cancelbtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        topDialog.setVisible(false);
-                        topDialog.dispose();
-                        topDialog = null;
-                    }
-                });
+			public void actionPerformed(ActionEvent e) {
+			    topDialog.setVisible(false);
+			    topDialog.dispose();
+			    topDialog = null;
+			}
+		    });
                 newproj.addWindowListener(new WindowAdapter() {
-                    public void windowClosing(WindowEvent e) {
-                        topDialog.setVisible(false);
-                        topDialog.dispose();
-                        topDialog = null;
-                    }
-                });
+			public void windowClosing(WindowEvent e) {
+			    topDialog.setVisible(false);
+			    topDialog.dispose();
+			    topDialog = null;
+			}
+		    });
                 btnpanel.add(okbtn);
                 btnpanel.add(cancelbtn);
                 newproj.getContentPane().setLayout(new GridLayout(10, 1));
@@ -527,19 +527,19 @@ public class vxd {
                     okbtn.addActionListener(new vxdOpenFileActionListener(fc.getSelectedFile(), builder));
                     JButton cancelbtn = new JButton("Cancel");
                     cancelbtn.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            topDialog.setVisible(false);
-                            topDialog.dispose();
-                            topDialog = null;
-                        }
-                    });
+			    public void actionPerformed(ActionEvent e) {
+				topDialog.setVisible(false);
+				topDialog.dispose();
+				topDialog = null;
+			    }
+			});
                     passwd.addWindowListener(new WindowAdapter() {
-                        public void windowClosing(WindowEvent e) {
-                            topDialog.setVisible(false);
-                            topDialog.dispose();
-                            topDialog = null;
-                        }
-                    });
+			    public void windowClosing(WindowEvent e) {
+				topDialog.setVisible(false);
+				topDialog.dispose();
+				topDialog = null;
+			    }
+			});
                     passwd.getContentPane().setLayout(new GridLayout(4, 1));
                     passwd.getContentPane().add(passwdpanel);
                     passwd.getContentPane().add(new JPanel());
@@ -553,7 +553,7 @@ public class vxd {
             } else if (e.getActionCommand().equals("SAVE")) {
                 if (vxd.controller == null || vxd.controller.project == null) {
                     JOptionPane.showMessageDialog(vxd.frame,
-                            "No Project Loaded to Save");
+						  "No Project Loaded to Save");
                     return;
                 }
                 JDialog passwd = new JDialog(vxd.frame, "Enter Password", true);
@@ -580,19 +580,19 @@ public class vxd {
                 okbtn.addActionListener(new vxdSaveFileActionListener());
                 JButton cancelbtn = new JButton("Cancel");
                 cancelbtn.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        topDialog.setVisible(false);
-                        topDialog.dispose();
-                        topDialog = null;
-                    }
-                });
+			public void actionPerformed(ActionEvent e) {
+			    topDialog.setVisible(false);
+			    topDialog.dispose();
+			    topDialog = null;
+			}
+		    });
                 passwd.addWindowListener(new WindowAdapter() {
-                    public void windowClosing(WindowEvent e) {
-                        topDialog.setVisible(false);
-                        topDialog.dispose();
-                        topDialog = null;
-                    }
-                });
+			public void windowClosing(WindowEvent e) {
+			    topDialog.setVisible(false);
+			    topDialog.dispose();
+			    topDialog = null;
+			}
+		    });
                 passwd.getContentPane().setLayout(new GridLayout(4, 1));
                 passwd.getContentPane().add(passwdpanel);
                 passwd.getContentPane().add(new JPanel());
@@ -602,8 +602,8 @@ public class vxd {
                 passwd.setVisible(true);
             } else if (e.getActionCommand().equals("EXIT")) {
                 int YorN = JOptionPane.showConfirmDialog(vxd.frame
-                                .getContentPane(), "Are You Sure You Want to Exit?",
-                        "Exit Program", JOptionPane.YES_NO_OPTION);
+							 .getContentPane(), "Are You Sure You Want to Exit?",
+							 "Exit Program", JOptionPane.YES_NO_OPTION);
                 if (YorN == JOptionPane.YES_OPTION)
                     System.exit(0);
             } else {
@@ -614,17 +614,17 @@ public class vxd {
                     String editor = vxd.config.getDocumentElement().getAttribute("editor" + os);
                     String fileManager = vxd.config.getDocumentElement().getAttribute("fileManager" + os);
                     java.lang.Runtime.getRuntime().exec(e.getActionCommand().
-                            replace("\\", separator).
-                            replace("\\", separator).
-                            replace("[LANGUAGE]", vxd.project.language).
-                            replace("[LANGUAGE]", vxd.project.language).
-                            replace("[TRANSLATOR]", vxd.project.translator).
-                            replace("[TRANSLATOR]", vxd.project.translator).
-                            replace("[PROJECT]", vxd.project.name).
-                            replace("[PROJECT]", vxd.project.name).
-                            replace("[BROWSER]", browser).
-                            replace("[EDITOR]", editor).
-                            replace("[FILEMANAGER]", fileManager));
+							replace("\\", separator).
+							replace("\\", separator).
+							replace("[LANGUAGE]", vxd.project.language).
+							replace("[LANGUAGE]", vxd.project.language).
+							replace("[TRANSLATOR]", vxd.project.translator).
+							replace("[TRANSLATOR]", vxd.project.translator).
+							replace("[PROJECT]", vxd.project.name).
+							replace("[PROJECT]", vxd.project.name).
+							replace("[BROWSER]", browser).
+							replace("[EDITOR]", editor).
+							replace("[FILEMANAGER]", fileManager));
                 } catch (Exception re) {
                     JOptionPane.showMessageDialog(vxd.frame, "Error: " + re.getMessage());
                 }
