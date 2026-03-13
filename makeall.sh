@@ -1,0 +1,2 @@
+cd vxd
+./makeall.sh
