@@ -128,8 +128,11 @@ public class vxd {
             frame.getContentPane().setLayout(new BorderLayout());
             frame.getContentPane().add(toolBarPanel, "North");
             frame.getContentPane().add(viewPanel, "Center");
-            frame.setSize(XSIZE = Integer.parseInt(root.getAttribute("xsize")),
-			  YSIZE = Integer.parseInt(root.getAttribute("ysize")));
+	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());
+	    XSIZE = screenSize.width - scnMax.left - scnMax.right;
+	    YSIZE = screenSize.height - scnMax.top - scnMax.bottom;
+	    frame.setSize(XSIZE,YSIZE);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(frame.DO_NOTHING_ON_CLOSE);
             frame.setVisible(true);
