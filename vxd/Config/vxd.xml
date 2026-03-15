@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vxd xmlns="http://tempuri.org/vxd.xsd" title="Tasx" leftpanewidth="235" rightpanewidth="278"
-     xiconsize="25" yiconsize="30" iconsperrow="40" iconborder="1" xdragsize="50"
+<vxd xmlns="http://tempuri.org/vxd.xsd" title="Tasx" leftpanewidth="235" rightpanewidth="400"
+     defaultpropertywidth="20" xiconsize="25" yiconsize="30" iconsperrow="40" iconborder="1" xdragsize="50"
      ydragsize="60" savefiledir="Work/" deploymentdir="Deployments/"
      exitstring="Are You Sure You Want to Exit?" exittitle="Exit Program"
      splashimage="Images/splash.jpg" iconimage="Images/VXD.jpg"

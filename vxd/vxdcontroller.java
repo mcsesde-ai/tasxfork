@@ -402,7 +402,7 @@ public class vxdcontroller {
 	layoutPropertyView(project.language,
 			   iconConnectionView.getElement());
     }
-
+    
     public void layoutPropertyView(String name, Element element) {
 	if(!vxd.controller.completelyLoaded)
 	    return;
@@ -420,9 +420,11 @@ public class vxdcontroller {
 	Vector vattr = getAttributes(name);
 	Enumeration e = vattr.elements();
 	JPanel propertypane = new JPanel();
-	propertypane.setLayout(new GridLayout(vattr.size(), 1));
+	GridBagLayout gridBagLayout = new GridBagLayout();
+	propertypane.setLayout(gridBagLayout);
 	Hashtable htattr = new Hashtable();
 	Hashtable htcomps = new Hashtable();
+	int gridBagRow = 0;
 	while (e.hasMoreElements()) {
 	    vxdAttribute a = (vxdAttribute) e.nextElement();
 	    htattr.put(a.name, a);
@@ -430,7 +432,13 @@ public class vxdcontroller {
 	    JLabel attrlabel = new JLabel(a.label, JLabel.RIGHT);
 	    JPanel attrlabelpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	    attrlabelpanel.add(attrlabel);
-	    attrpanel.add(attrlabelpanel);
+	    GridBagConstraints gridBagConstraints = new GridBagConstraints();
+	    gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+	    gridBagConstraints.anchor = GridBagConstraints.EAST;
+	    gridBagConstraints.gridx = 0;
+	    gridBagConstraints.gridy = gridBagRow;
+	    gridBagConstraints.weightx = 0;
+	    propertypane.add(attrlabelpanel, gridBagConstraints);
 	    if (a.name.equals("ID") /*|| a.name.equals("XPos") || a.name.equals("YPos") */ ||
 		((a.name.equals("SourceID") || a.name.equals("DestID")) &&
 		 name.equals("Connection"))) {
@@ -456,20 +464,21 @@ public class vxdcontroller {
 	    } else {
 		JComponent field = new JTextField(8);
 		javax.swing.text.Document fielddoc;
-		// if(!a.name.equals("Notes")){
-		fielddoc = ((JTextField) field).getDocument();
-		((JTextField) field).setDocument(fielddoc);
-		((JTextField) field).setText(element.getAttribute(a.name));
-		((JTextField) field).setHorizontalAlignment(JTextField.LEFT);
-		/*}else{
-		  field=new JTextArea(45,3);
-		  ((JTextArea)field).setSize(150,75);
-		  ((JTextArea)field).setLineWrap(true);
-		  ((JTextArea)field).setEditable(true);
-		  fielddoc=((JTextArea)field).getDocument();
-		  ((JTextArea)field).setDocument(fielddoc);
-		  ((JTextArea)field).setText(element.getAttribute(a.name));
-		  }  */
+		if(!a.name.equals("Notes")){
+		    fielddoc = ((JTextField) field).getDocument();
+		    ((JTextField) field).setDocument(fielddoc);
+		    ((JTextField) field).setText(element.getAttribute(a.name));
+		    ((JTextField) field).setHorizontalAlignment(JTextField.LEFT);
+		    ((JTextField) field).setColumns(vxd.DEFAULT_CONTROL_WIDTH);
+		}else{
+		    field=new JTextArea(8,vxd.DEFAULT_CONTROL_WIDTH);
+		    ((JTextArea)field).setLineWrap(true);
+		    ((JTextArea)field).setWrapStyleWord(true);
+		    ((JTextArea)field).setEditable(true);
+		    fielddoc=((JTextArea)field).getDocument();
+		    ((JTextArea)field).setDocument(fielddoc);
+		    ((JTextArea)field).setText(element.getAttribute(a.name));
+		}  
 		fielddoc.addDocumentListener(new vxdPropertyChangeEventListener(element, a.name, field));
 		JPanel fieldpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		fieldpanel.add(field);
@@ -567,11 +576,19 @@ public class vxdcontroller {
 		    }//for edtors
 		}//if(hasEditor)
 	    }
-	    propertypane.add(attrpanel);
+	    GridBagConstraints gridBagConstraintsControl = new GridBagConstraints();
+	    gridBagConstraintsControl.anchor = GridBagConstraints.WEST;
+	    gridBagConstraintsControl.gridx = 1;
+	    gridBagConstraintsControl.gridy = gridBagRow;
+	    gridBagConstraintsControl.weightx = 1.0;
+	    gridBagConstraintsControl.fill = GridBagConstraints.HORIZONTAL;
+	    propertypane.add(attrpanel, gridBagConstraintsControl);
+	    
+	    ++gridBagRow;
 	}
 	JScrollPane scrollpane = new JScrollPane();
 	scrollpane.setViewportView(propertypane);
-	propertyTabView.add(scrollpane, BorderLayout.CENTER);
+	propertyTabView.add(scrollpane, BorderLayout.NORTH);
 	propertyTabView.validate();
 	propertyTabView.repaint();
     }

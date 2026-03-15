@@ -43,6 +43,7 @@ public class vxd {
     public static int YSIZE;
     public static int LEFT_PANE_WIDTH;
     public static int RIGHT_PANE_WIDTH;
+    public static int DEFAULT_CONTROL_WIDTH;
     public static int iconsperrow;
     public static int xiconsize;
     public static int yiconsize;
@@ -96,6 +97,7 @@ public class vxd {
             title = root.getAttribute("title");
 	    LEFT_PANE_WIDTH = Integer.parseInt(root.getAttribute("leftpanewidth"));
 	    RIGHT_PANE_WIDTH = Integer.parseInt(root.getAttribute("rightpanewidth"));
+	    DEFAULT_CONTROL_WIDTH = Integer.parseInt(root.getAttribute("defaultpropertywidth"));
             iconsperrow = Integer.parseInt(root.getAttribute("iconsperrow"));
             xiconsize = Integer.parseInt(root.getAttribute("xiconsize"));
             yiconsize = Integer.parseInt(root.getAttribute("yiconsize"));
