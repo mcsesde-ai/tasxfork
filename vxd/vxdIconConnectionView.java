@@ -22,7 +22,8 @@ public class vxdIconConnectionView extends JComponent
     public vxdIconConnectionView(String name) {
         this.name = name;
         connectors = new Vector();
-        setLayout(this);
+        setSize(vxd.CANVASWIDTH, vxd.CANVASHEIGHT);
+	setLayout(this);
         addMouseListener(this);
     }
 

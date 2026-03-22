@@ -1257,15 +1257,17 @@ public class vxdcontroller {
 				       new JPanel(), new JPanel());
 	mainSplitView.setOneTouchExpandable(true);
 	iconConnectionView = new vxdIconConnectionView(project.language);
+	iconConnectionView.setPreferredSize(new Dimension(vxd.CANVASWIDTH, vxd.CANVASHEIGHT));
 	JScrollPane iconConnectionViewPanel = new JScrollPane(iconConnectionView);
+	iconConnectionViewPanel.setBounds(0,0,vxd.CANVASWIDTH,vxd.CANVASHEIGHT);
 	treeView = new JPanel(new BorderLayout());
 	projectSplitView = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
 					  treeView,
 					  iconConnectionViewPanel);
 	projectSplitView.setMinimumSize(new Dimension(0, 0));
 	treeView.setMinimumSize(new Dimension(0, 0));
-	iconConnectionViewPanel.setMinimumSize(new Dimension(0, 0));
-	iconConnectionView.setMinimumSize(new Dimension(0, 0));
+	iconConnectionViewPanel.setMinimumSize(new Dimension(vxd.CANVASWIDTH, vxd.CANVASHEIGHT));
+	iconConnectionView.setMinimumSize(new Dimension(vxd.CANVASWIDTH, vxd.CANVASHEIGHT));
 	projectSplitView.setOneTouchExpandable(true);
 	projectSplitView.setSize(vxd.XSIZE, vxd.YSIZE);
 	mainSplitView.setLeftComponent(projectSplitView);
