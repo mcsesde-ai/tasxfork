@@ -1014,10 +1014,13 @@ public class vxdcontroller {
     }
 
     public Element showElementPropertyBox(String name, Document document, int x, int y) {
+	Element node = null;
+	node = (Element) document.createElement(name);
+
 	Vector vattr = getAttributes(name);
 	Enumeration e = vattr.elements();
 	JDialog dlg = new JDialog(vxd.frame, name, true);
-	dlg.setSize(350, 460);
+	dlg.setSize(400, 500);
 	dlg.setLocationRelativeTo(null);
 	JLabel dlglabel = new JLabel(name + " Attributes");
 	dlglabel.setHorizontalAlignment(JLabel.CENTER);
@@ -1092,13 +1095,38 @@ public class vxdcontroller {
 		attrpanel.add(fixedpanel);
 		htcomps.put(a.name, fixed);
 	    } else {
-		JTextField field = new JTextField(10);
+		JComponent field = new JTextField(8);
+		javax.swing.text.Document fielddoc;
+		//	if(!a.name.equals("Notes")){
+		    // fielddoc = ((JTextField) field).getDocument();
+		    //  ((JTextField) field).setDocument(document);
+		     if(a!=null && a.value!=null)
+			 ((JTextField) field).setText(a.value);
+		    ((JTextField) field).setHorizontalAlignment(JTextField.LEFT);
+		    ((JTextField) field).setColumns(vxd.DEFAULT_CONTROL_WIDTH);
+		    /*	}else{
+		    field=new JTextArea(8,vxd.DEFAULT_CONTROL_WIDTH);
+		    ((JTextArea)field).setLineWrap(true);
+		    ((JTextArea)field).setWrapStyleWord(true);
+		    ((JTextArea)field).setEditable(true);
+		    //   fielddoc=((JTextArea)field).getDocument();
+		    //   ((JTextArea)field).setDocument(fielddoc);
+		    if(a!=null && a.value!=null)
+			((JTextArea)field).setText(a.value);
+			}  */
+		//	fielddoc.addDocumentListener(new vxdPropertyChangeEventListener(node, a.name, field));
+		JPanel fieldpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		fieldpanel.add(field);
+		attrpanel.add(fieldpanel);
+
+		/*	JTextField field = new JTextField(10);
 		if (a.value != null)
 		    field.setText(a.value);
 		field.setHorizontalAlignment(JTextField.LEFT);
 		JPanel fieldpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		fieldpanel.add(field);
 		attrpanel.add(fieldpanel);
+		*/
 		htcomps.put(a.name, field);
 	    }
 	    GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -1145,8 +1173,6 @@ public class vxdcontroller {
 	dlg.getContentPane().add(btnpanel, BorderLayout.SOUTH);
 	vxd.topDialog = dlg;
 	dlg.show();
-	Element node = null;
-	node = (Element) document.createElement(name);
 	if (!btnok.getActionCommand().equals("OK")) {
 	    dlg.setVisible(false);
 	    dlg.dispose();
@@ -1177,7 +1203,7 @@ public class vxdcontroller {
 						      attr.label +
 						      " is Required");
 			ekeys = htattr.keys();
-			node = (Element) document.createElement(name);
+			//			node = (Element) document.createElement(name);
 			btnok.setActionCommand("NO");
 			dlg.show();
 			if (!btnok.getActionCommand().equals("OK")) {
