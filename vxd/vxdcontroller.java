@@ -1024,19 +1024,21 @@ public class vxdcontroller {
 	dlglabel.setVerticalAlignment(JLabel.CENTER);
 	dlg.getContentPane().setLayout(new BorderLayout());
 	JPanel attrspanel = new JPanel();
-	attrspanel.setLayout(new GridLayout(vattr.size() + 2, 1));
+       	attrspanel.setLayout(new GridBagLayout());
+	
 	dlg.getContentPane().add(dlglabel, BorderLayout.NORTH);
 	Hashtable htattr = new Hashtable();
 	Hashtable htcomps = new Hashtable();
+	int gridBagRow = 0;
 	while (e.hasMoreElements()) {
 	    vxdAttribute a = (vxdAttribute) e.nextElement();
 	    htattr.put(a.name, a);
 	    javax.swing.JPanel attrpanel = new JPanel();
-	    attrpanel.setLayout(new GridLayout(1, 2));
+	    // attrpanel.setLayout(new GridLayout(1, 2));
 	    JLabel attrlabel = new JLabel(a.label, JLabel.RIGHT);
-	    JPanel attrlabelpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	    JPanel attrlabelpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	    attrlabelpanel.add(attrlabel);
-	    attrpanel.add(attrlabelpanel);
+	    // attrpanel.add(attrlabelpanel);
 	    if (a.name.equals("ID")) {
 		a.value = Integer.toString(Math.abs((new java.util.Random()).nextInt()));
 		JLabel fixed = new JLabel(a.value, JLabel.LEFT);
@@ -1056,7 +1058,7 @@ public class vxdcontroller {
 		JLabel fixed = new JLabel(a.value, JLabel.LEFT);
 		JPanel fixedpanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		fixedpanel.add(fixed);
-		attrpanel.add(fixedpanel);
+		attrpanel.add(fixedpanel);		
 		htcomps.put(a.name, fixed);
 	    } else if ((a.name.equals("SourceID") || a.name.equals("DestID")) &&
 		       name.equals("Connection")) {
@@ -1099,7 +1101,23 @@ public class vxdcontroller {
 		attrpanel.add(fieldpanel);
 		htcomps.put(a.name, field);
 	    }
-	    attrspanel.add(attrpanel);
+	    GridBagConstraints gridBagConstraints = new GridBagConstraints();
+	    gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+	    gridBagConstraints.anchor = GridBagConstraints.EAST;
+	    gridBagConstraints.gridx = 0;
+	    gridBagConstraints.gridy = gridBagRow;
+	    gridBagConstraints.weightx = 1.0;
+	    attrspanel.add(attrlabelpanel, gridBagConstraints);
+
+	    GridBagConstraints gridBagConstraintsControl = new GridBagConstraints();
+	    gridBagConstraintsControl.anchor = GridBagConstraints.WEST;
+	    gridBagConstraintsControl.gridx = 1;
+	    gridBagConstraintsControl.gridy = gridBagRow;
+	    gridBagConstraintsControl.weightx = 1.0;
+	    gridBagConstraintsControl.fill = GridBagConstraints.HORIZONTAL;
+
+	    attrspanel.add(attrpanel,gridBagConstraintsControl);
+	    ++gridBagRow;
 	}
 	JScrollPane scrollpane = new JScrollPane(attrspanel);
 	dlg.getContentPane().add(scrollpane, BorderLayout.CENTER);
