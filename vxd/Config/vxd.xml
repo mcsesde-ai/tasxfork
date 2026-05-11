@@ -4,33 +4,31 @@
      ydragsize="60" savefiledir="Work/" deploymentdir="Deployments/"
      exitstring="Are You Sure You Want to Exit?" exittitle="Exit Program"
      splashimage="Images/splash.jpg" iconimage="Images/VXD.jpg"
-     browserWindows="C:\Program Files (x86)\Microsoft\Edge\Application\146.0.3856.109\msedge.exe"
-     browserLinux="/data/data/com.termux/files/usr/bin/firefox"
-     editorLinux="/data/data/com.termux/files/usr/bin/emacs-30.2"
+     browserWindows="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+     browserLinux="firefox"
+     editorLinux="emacs"
      editorMac="open -b com.apple.TextEdit"
      editorWindows="C:\Program Files\Emacs\emacs-30.1\bin\emacs.exe"
      fileManagerWindows="c:\Windows\explorer.exe"
-     fileManagerLinux="/data/data/com.termux/files/usr/bin/pcmanfm"
+     fileManagerLinux="thunar"
      fileManagerMac="open"
   debugdecryption="false">
     <toolbar>
-        <toolbarbutton image="Images/VXDIcon.jpg" text="Auto Generate Language from Image List (XML,DTD,XSL)"
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents a visual xml designer, an a visual uml like graphical designer for designing visual programs and visual data." image="Images/VXDIcon.jpg" text="Auto Generate Language from Image List (XML,DTD,XSL)"
                        command="NEWDTD" enabled="FALSE"/>
-        <toolbarbutton image="Images/newdtd.jpg" text="New DTD (Language Structure)" command="NEWDTD" enabled="FALSE"/>
-        <toolbarbutton image="Images/newlang.jpg" text="New XSL (Program Generator)" command="NEWXSL" enabled="FALSE"/>
-        <toolbarbutton image="Images/newlang.jpg" text="New Deployer (Installer)" command="NEWDEPLOYER"
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents creating a new DTD schema file and place it in the vxd/Images folder and name the icon newdtd.jpg." image="Images/newdtd.jpg" text="New DTD (Language Structure)" command="NEWDTD" enabled="FALSE"/>
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that repreresents creating a new visual language and place it in the vxd/Images folder and name the icon newlang.jpg." image="Images/newlang.jpg" text="New XSL (Program Generator)" command="NEWXSL" enabled="FALSE"/>
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents creating a new program deployer and place it in the vxd/Images folder and name the icon newlang.jpg." image="Images/newlang.jpg" text="New Deployer (Installer)" command="NEWDEPLOYER"
                        enabled="FALSE"/>
-        <toolbarbutton image="Images/newlang.jpg" text="New Designer (Menu Layout)" command="NEWDESIGNER"
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents creating a new menu layout for a new designer and place it in the vxd/Images folder and name the icon newlang.jpg." image="Images/newlang.jpg" text="New Designer (Menu Layout)" command="NEWDESIGNER"
                        enabled="FALSE"/>
-        <toolbarbutton image="Images/newlang.jpg" text="New Designer (Menu Layout)" command="NEWDESIGNER"
-                       enabled="FALSE"/>
-        <toolbarbutton image="Images/new.png" text="New" command="NEWXML" enabled="TRUE"/>
-        <toolbarbutton image="Images/open.png" text="Open" command="OPEN" enabled="TRUE"/>
-        <toolbarbutton image="Images/save.png" text="Save" command="SAVE" enabled="TRUE"/>
-        <toolbarbutton image="Images/configuration.png" text="Configuration (XML)" command="[EDITOR] Config\vxd.xml" enabled="TRUE"/>
-        <toolbarbutton image="Images/image.png" text="Global Images" command="[FILEMANAGER] Images\"
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents creating a new XML file and place it in the vxd/Images/ folder and name the program new.png." image="Images/new.png" text="New" command="NEWXML" enabled="TRUE"/>
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents opening a new Visual XML program and place it in the vxd/Images/ folder and name the file open.png." image="Images/open.png" text="Open" command="OPEN" enabled="TRUE"/>
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents saving the currently opened Visual XML program." image="Images/save.png" text="Save" command="SAVE" enabled="TRUE"/>
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents the system configuration and place it in the vxd/Images folder and name the file configuration.png" image="Images/configuration.png" text="Configuration (XML)" command="[EDITOR] Config\vxd.xml" enabled="TRUE"/>
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents a folder where global images are placed and place the image in the vxd/Images folder and name the image image.png." image="Images/image.png" text="Global Images" command="[FILEMANAGER] Images\"
                        enabled="TRUE"/>
-        <toolbarbutton image="Images/VisualLanguageElementsXML.png" text="Visual Language Elements (XML)"
+        <toolbarbutton aiimageprompt="Create an embossed steel styled icon that represents the XML design file that is currently open and place it in the vxd/Images folder and name the image VisualLanguageElementsXML.png." image="Images/VisualLanguageElementsXML.png" text="Visual Language Elements (XML)"
                        command="[EDITOR] Languages\[LANGUAGE]\[LANGUAGE].xml" enabled="TRUE"/>
         <toolbarbutton image="Images/VisualLanguageStructureDTD.png" text="Visual Language Structure (DTD)"
                        command="[EDITOR] Languages\[LANGUAGE]\[LANGUAGE].dtd" enabled="TRUE"/>
